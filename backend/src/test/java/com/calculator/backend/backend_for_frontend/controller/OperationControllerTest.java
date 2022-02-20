@@ -2,12 +2,14 @@ package com.calculator.backend.backend_for_frontend.controller;
 
 import com.calculator.backend.storage.Operation;
 import com.calculator.backend.util.OperationUtil;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +22,11 @@ class OperationControllerTest {
     TestRestTemplate restTemplate;
     @LocalServerPort
     int randomServerPort;
+
+    @BeforeEach
+    void setUp() {
+        OperationUtil.operationsHistoryList = new ArrayList<>();
+    }
 
     @Test
     void getsOperationsHistoryList() {
