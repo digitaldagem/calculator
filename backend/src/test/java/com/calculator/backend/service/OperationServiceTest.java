@@ -3,7 +3,6 @@ package com.calculator.backend.service;
 import com.calculator.backend.backend_for_frontend.dto.OperationDTO;
 import com.calculator.backend.storage.Operation;
 import com.calculator.backend.storage.OperationRepository;
-import com.calculator.backend.util.OperationUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,7 +49,7 @@ class OperationServiceTest {
         OperationDTO.Response response = operationService.add(valuesAndOperatorDTO);
 
         // then
-        assertEquals(operations.size(), 1);
+        assertEquals(1, operations.size());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -65,7 +64,7 @@ class OperationServiceTest {
         OperationDTO.Response response = operationService.add(valuesAndOperatorDTO);
 
         // then
-        assertEquals(operations.size(), 0);
+        assertEquals(0, operations.size());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -83,7 +82,7 @@ class OperationServiceTest {
         OperationDTO.Response response = operationService.subtract(valuesAndOperatorDTO);
 
         // then
-        assertEquals(operations.size(), 1);
+        assertEquals(1, operations.size());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -98,7 +97,7 @@ class OperationServiceTest {
         OperationDTO.Response response = operationService.subtract(valuesAndOperatorDTO);
 
         // then
-        assertEquals(operations.size(), 0);
+        assertEquals(0, operations.size());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -116,7 +115,7 @@ class OperationServiceTest {
         OperationDTO.Response response = operationService.multiply(valuesAndOperatorDTO);
 
         // then
-        assertEquals(operations.size(), 1);
+        assertEquals(1, operations.size());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -131,7 +130,7 @@ class OperationServiceTest {
         OperationDTO.Response response = operationService.multiply(valuesAndOperatorDTO);
 
         // then
-        assertEquals(operations.size(), 0);
+        assertEquals(0, operations.size());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -149,7 +148,7 @@ class OperationServiceTest {
         OperationDTO.Response response = operationService.divide(valuesAndOperatorDTO);
 
         // then
-        assertEquals(operations.size(), 1);
+        assertEquals(1, operations.size());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -164,20 +163,7 @@ class OperationServiceTest {
         OperationDTO.Response response = operationService.divide(valuesAndOperatorDTO);
 
         // then
-        assertEquals(operations.size(), 0);
+        assertEquals(0, operations.size());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
-    }
-
-    @Test
-    void addsAllOperationsToHistoryList_regardlessIfResultReturnsFromExistingObjectOrNewObject() {
-        // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                -1.0, "-", 1.0);
-        OperationDTO.Response responseOne = operationService.subtract(valuesAndOperatorDTO);
-        OperationDTO.Response responseTwo = operationService.subtract(valuesAndOperatorDTO);
-
-        // then
-        assertEquals(OperationUtil.operationsHistoryList.size(), 2);
-        assertEquals(responseOne.getId(), responseTwo.getId());
     }
 }

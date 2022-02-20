@@ -2,15 +2,12 @@ package com.calculator.backend.backend_for_frontend.controller;
 
 import com.calculator.backend.storage.Operation;
 import com.calculator.backend.util.OperationUtil;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,12 +21,18 @@ class OperationControllerTest {
     @LocalServerPort
     int randomServerPort;
 
-    static URI uri;
+    @Test
+    void getsOperationsHistoryList() {
+        // given
+        Operation operationOne = new Operation(UUID.randomUUID().toString(), 1.0, "+", 1.0, 2.0);
+        OperationUtil.operationsHistoryList.add(operationOne);
+        OperationUtil.operationsHistoryList.add(operationOne);
 
-    @BeforeEach
-    void setUp() throws URISyntaxException {
-        final String baseUrl = "http://localhost:"+randomServerPort+"/delete_history";
-        uri = new URI(baseUrl);
+        // when
+        this.restTemplate.getForEntity("http://localhost:"+randomServerPort+"/", List.class);
+
+        // then
+        assertEquals(2, OperationUtil.operationsHistoryList.size());
     }
 
     @Test
@@ -41,10 +44,10 @@ class OperationControllerTest {
         List<Operation> operationsHistoryListBeforeDeletionCall = OperationUtil.operationsHistoryList;
 
         // when
-        this.restTemplate.getForEntity(uri, List.class);
+        this.restTemplate.getForEntity("http://localhost:"+randomServerPort+"/delete_history", List.class);
 
         // then
-        assertEquals(operationsHistoryListBeforeDeletionCall.size(), 2);
-        assertEquals(OperationUtil.operationsHistoryList.size(), 0);
+        assertEquals(2, operationsHistoryListBeforeDeletionCall.size());
+        assertEquals(0, OperationUtil.operationsHistoryList.size());
     }
 }
