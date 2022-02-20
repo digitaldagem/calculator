@@ -1,4 +1,4 @@
-# Calculator Backend Server
+# Calculator Application's Backend Server
 
 ## Database
 
