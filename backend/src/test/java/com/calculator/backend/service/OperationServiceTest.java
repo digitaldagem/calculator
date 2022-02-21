@@ -50,6 +50,7 @@ class OperationServiceTest {
 
         // then
         assertEquals(1, operations.size());
+        assertEquals(operationRepository.findAll().get(0).getId(), response.getId());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -83,6 +84,7 @@ class OperationServiceTest {
 
         // then
         assertEquals(1, operations.size());
+        assertEquals(operationRepository.findAll().get(0).getId(), response.getId());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -105,7 +107,7 @@ class OperationServiceTest {
     void multiply_returnsResultFromExistingObject() {
         // given
         Operation operation = new Operation(
-                UUID.randomUUID().toString(), 1.0, "x", 1.0, 1.0);
+                UUID.randomUUID().toString(), 1.0, "*", 1.0, 1.0);
         testEntityManager.persist(operation);
         List<Operation> operations = operationRepository.findAll();
 
@@ -116,6 +118,7 @@ class OperationServiceTest {
 
         // then
         assertEquals(1, operations.size());
+        assertEquals(operationRepository.findAll().get(0).getId(), response.getId());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
@@ -149,6 +152,7 @@ class OperationServiceTest {
 
         // then
         assertEquals(1, operations.size());
+        assertEquals(operationRepository.findAll().get(0).getId(), response.getId());
         assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
     }
 
