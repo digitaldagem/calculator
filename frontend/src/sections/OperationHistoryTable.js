@@ -65,7 +65,7 @@ const OperationHistoryTable = () => {
                         align="center"
                         className={classes.typography}
                       >
-                        {`${operation.firstValue} ${operation.operator} ${operation.secondValue} = ${operation.result}`}
+                        {`${operation.firstValue} ${operation.operatorSign} ${operation.secondValue} = ${operation.result}`}
                       </TableCell>
                     </TableRow>
                   ))}

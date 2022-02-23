@@ -22,7 +22,7 @@ public class OperationController {
     }
 
     @GetMapping
-    public List<Operation> getResponseList() {
+    public List<OperationDTO.HistoryResponse> getResponseList() {
         return OperationUtil.operationsHistoryList;
     }
 
@@ -34,21 +34,26 @@ public class OperationController {
 
     @PostMapping("/add")
     public OperationDTO.Response add(@RequestBody OperationDTO.ValuesAndOperator valuesAndOperatorDTO) {
-        return operationService.add(valuesAndOperatorDTO);
+        return operationService.add(valuesAndOperatorDTO.getFirstNumber(), "add",
+                valuesAndOperatorDTO.getSecondNumber());
     }
 
     @PostMapping("/subtract")
     public OperationDTO.Response subtract(@RequestBody OperationDTO.ValuesAndOperator valuesAndOperatorDTO) {
-        return operationService.subtract(valuesAndOperatorDTO);
+        return operationService.subtract(valuesAndOperatorDTO.getFirstNumber(), "subtract",
+                valuesAndOperatorDTO.getSecondNumber());
     }
 
     @PostMapping("/multiply")
     public OperationDTO.Response multiply(@RequestBody OperationDTO.ValuesAndOperator valuesAndOperatorDTO) {
-        return operationService.multiply(valuesAndOperatorDTO);
+        System.out.println(valuesAndOperatorDTO.getFirstNumber());
+        return operationService.multiply(valuesAndOperatorDTO.getFirstNumber(), "multiply",
+                valuesAndOperatorDTO.getSecondNumber());
     }
 
     @PostMapping("/divide")
     public OperationDTO.Response divide(@RequestBody OperationDTO.ValuesAndOperator valuesAndOperatorDTO) {
-        return operationService.divide(valuesAndOperatorDTO);
+        return operationService.divide(valuesAndOperatorDTO.getFirstNumber(), "divide",
+                valuesAndOperatorDTO.getSecondNumber());
     }
 }

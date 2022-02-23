@@ -13,7 +13,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,20 +37,15 @@ class OperationServiceTest {
     @Test
     void add_returnsResultFromExistingObject() {
         // given
-        Operation operation = new Operation(
-                UUID.randomUUID().toString(), 1.0, "+", 1.0, 2.0);
+        Operation operation = new Operation("1.0", "add", "1.0", "2.0");
         testEntityManager.persist(operation);
-        List<Operation> operations = operationRepository.findAll();
 
         // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                1.0, "+", 1.0);
-        OperationDTO.Response response = operationService.add(valuesAndOperatorDTO);
+        OperationDTO.Response response = operationService.add(1.0, "add", 1.0);
 
         // then
-        assertEquals(1, operations.size());
-        assertEquals(operationRepository.findAll().get(0).getId(), response.getId());
-        assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
+        assertEquals(operation.getId(), response.getId());
+        assertEquals(operation.getResult(), response.getResult());
     }
 
     @Test
@@ -60,9 +54,7 @@ class OperationServiceTest {
         List<Operation> operations = operationRepository.findAll();
 
         // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                1.0, "+", 1.0);
-        OperationDTO.Response response = operationService.add(valuesAndOperatorDTO);
+        OperationDTO.Response response = operationService.add(1.0, "add", 1.0);
 
         // then
         assertEquals(0, operations.size());
@@ -72,20 +64,15 @@ class OperationServiceTest {
     @Test
     void subtract_returnsResultFromExistingObject() {
         // given
-        Operation operation = new Operation(
-                UUID.randomUUID().toString(), 1.0, "-", 1.0, 0.0);
+        Operation operation = new Operation("1.0", "subtract", "1.0", "0.0");
         testEntityManager.persist(operation);
-        List<Operation> operations = operationRepository.findAll();
 
         // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                1.0, "-", 1.0);
-        OperationDTO.Response response = operationService.subtract(valuesAndOperatorDTO);
+        OperationDTO.Response response = operationService.subtract(1.0, "subtract", 1.0);
 
         // then
-        assertEquals(1, operations.size());
-        assertEquals(operationRepository.findAll().get(0).getId(), response.getId());
-        assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
+        assertEquals(operation.getId(), response.getId());
+        assertEquals(operation.getResult(), response.getResult());
     }
 
     @Test
@@ -94,9 +81,7 @@ class OperationServiceTest {
         List<Operation> operations = operationRepository.findAll();
 
         // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                1.0, "-", 1.0);
-        OperationDTO.Response response = operationService.subtract(valuesAndOperatorDTO);
+        OperationDTO.Response response = operationService.subtract(1.0, "subtract", 1.0);
 
         // then
         assertEquals(0, operations.size());
@@ -106,20 +91,15 @@ class OperationServiceTest {
     @Test
     void multiply_returnsResultFromExistingObject() {
         // given
-        Operation operation = new Operation(
-                UUID.randomUUID().toString(), 1.0, "*", 1.0, 1.0);
+        Operation operation = new Operation("1.0", "multiply", "1.0", "1.0");
         testEntityManager.persist(operation);
-        List<Operation> operations = operationRepository.findAll();
 
         // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                1.0, "*", 1.0);
-        OperationDTO.Response response = operationService.multiply(valuesAndOperatorDTO);
+        OperationDTO.Response response = operationService.multiply(1.0, "multiply", 1.0);
 
         // then
-        assertEquals(1, operations.size());
-        assertEquals(operationRepository.findAll().get(0).getId(), response.getId());
-        assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
+        assertEquals(operation.getId(), response.getId());
+        assertEquals(operation.getResult(), response.getResult());
     }
 
     @Test
@@ -128,9 +108,7 @@ class OperationServiceTest {
         List<Operation> operations = operationRepository.findAll();
 
         // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                1.0, "*", 1.0);
-        OperationDTO.Response response = operationService.multiply(valuesAndOperatorDTO);
+        OperationDTO.Response response = operationService.multiply(1.0, "multiply", 1.0);
 
         // then
         assertEquals(0, operations.size());
@@ -140,20 +118,15 @@ class OperationServiceTest {
     @Test
     void divide_returnsResultFromExistingObject() {
         // given
-        Operation operation = new Operation(
-                UUID.randomUUID().toString(), 2.0, "÷", 2.0, 1.0);
+        Operation operation = new Operation("2.0", "divide", "2.0", "1.0");
         testEntityManager.persist(operation);
-        List<Operation> operations = operationRepository.findAll();
 
         // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                2.0, "÷", 2.0);
-        OperationDTO.Response response = operationService.divide(valuesAndOperatorDTO);
+        OperationDTO.Response response = operationService.divide(2.0, "divide", 2.0);
 
         // then
-        assertEquals(1, operations.size());
-        assertEquals(operationRepository.findAll().get(0).getId(), response.getId());
-        assertEquals(operationRepository.findAll().get(0).getResult(), response.getResult());
+        assertEquals(operation.getId(), response.getId());
+        assertEquals(operation.getResult(), response.getResult());
     }
 
     @Test
@@ -162,9 +135,7 @@ class OperationServiceTest {
         List<Operation> operations = operationRepository.findAll();
 
         // when
-        OperationDTO.ValuesAndOperator valuesAndOperatorDTO = new OperationDTO.ValuesAndOperator(
-                2.0, "÷", 2.0);
-        OperationDTO.Response response = operationService.divide(valuesAndOperatorDTO);
+        OperationDTO.Response response = operationService.divide(2.0, "divide", 2.0);
 
         // then
         assertEquals(0, operations.size());

@@ -1,5 +1,6 @@
 package com.calculator.backend.backend_for_frontend.controller;
 
+import com.calculator.backend.backend_for_frontend.dto.OperationDTO;
 import com.calculator.backend.storage.Operation;
 import com.calculator.backend.util.OperationUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +12,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,16 +25,14 @@ class OperationControllerTest {
 
     @BeforeEach
     void setUp() {
+        Operation operation = new Operation("1.0", "add", "1.0", "2.0");
         OperationUtil.operationsHistoryList = new ArrayList<>();
+        OperationUtil.operationsHistoryList.add(OperationUtil.getHistoryResponse(operation));
+        OperationUtil.operationsHistoryList.add(OperationUtil.getHistoryResponse(operation));
     }
 
     @Test
     void getsOperationsHistoryList() {
-        // given
-        Operation operationOne = new Operation(UUID.randomUUID().toString(), 1.0, "+", 1.0, 2.0);
-        OperationUtil.operationsHistoryList.add(operationOne);
-        OperationUtil.operationsHistoryList.add(operationOne);
-
         // when
         this.restTemplate.getForEntity("http://localhost:"+randomServerPort+"/", List.class);
 
@@ -45,10 +43,7 @@ class OperationControllerTest {
     @Test
     void deletesAllOperationsInHistoryList() {
         // given
-        Operation operationOne = new Operation(UUID.randomUUID().toString(), 1.0, "+", 1.0, 2.0);
-        OperationUtil.operationsHistoryList.add(operationOne);
-        OperationUtil.operationsHistoryList.add(operationOne);
-        List<Operation> operationsHistoryListBeforeDeletionCall = OperationUtil.operationsHistoryList;
+        List<OperationDTO.HistoryResponse> operationsHistoryListBeforeDeletionCall = OperationUtil.operationsHistoryList;
 
         // when
         this.restTemplate.getForEntity("http://localhost:"+randomServerPort+"/delete_history", List.class);

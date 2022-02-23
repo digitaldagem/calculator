@@ -30,9 +30,9 @@ const Calculator = () => {
     secondValue !== "" ?
       axios.post(`http://localhost:8080/${endpoint}`,
         {
-          firstValue: parseFloat(firstValue, 10),
+          firstValue: firstValue,
           operator: operator,
-          secondValue: parseFloat(secondValue, 10)
+          secondValue: secondValue
         }
       ).then((response) => {
         setResultValue("= " + response.data.result);
